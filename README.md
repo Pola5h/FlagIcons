@@ -49,7 +49,32 @@ To display the Bengali language flag with a width of 10px and height of 10px:
 ```blade
 <x-flag-icon type="language" code="bn" width="10px" height="10px" />
 ```
+#### Dynamic Examples
+You can also use dynamic values to render icons:
+
+To display the country flag:
+
+```blade
+<x-flag-icon type="country" code="{{$code}}" width="10px" height="10px" />
+```
+or 
+
+```blade
+<x-flag-icon type="country" code="{{$country->code}}" width="10px" height="10px" />
+```
+To display the language flag:
+
+```blade
+<x-flag-icon type="language" code="{{$code}}" width="10px" height="10px" />
+```
+or
+
+```blade
+<x-flag-icon type="language" code="{{$language->code}}" width="10px" height="10px" />
+```
+
 #### County List With Code
+[If you can't see the table, visit GitHub repo]
 
 |    Country Name    |    Country Code    |
 |--------------------|--------------------|
@@ -298,7 +323,10 @@ To display the Bengali language flag with a width of 10px and height of 10px:
 |      Åland Islands       |           ax           |
 
 #### Language List With Code
-[The language flags are selected based on the country with the highest number of speakers of that language. For example, while Bangla is spoken in both Bangladesh and India, the flag of Bangladesh is used for Bangla because it has more speakers there.]
+The language flags are selected based on the country with the highest number of speakers of that language. For example, while Bangla is spoken in both Bangladesh and India, the flag of Bangladesh is used for Bangla because it has more speakers there.
+
+[If you can't see the table, visit GitHub repo]
+
 
 |    Language Name    |    Language Code    |    Country Name    |    Country Code    |
 |---------------------|---------------------|--------------------|--------------------|
