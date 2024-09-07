@@ -2,7 +2,7 @@
     "name": "pola5h/laravel-flags",
     "description": "A Laravel package for country and language flag icons.",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Kamruzzaman Polash <kzaman3055@gmail.com>",
     "license": "MIT",
     "autoload": {
