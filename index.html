@@ -9,19 +9,28 @@
         content="Display country and language flag icons in Laravel Blade with one component. Uses Twitter Twemoji emoji flags. Supports 250+ countries and 100+ languages. Free, MIT licensed.">
     <meta name="author" content="Kamruzzaman Polash">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://pola5h.github.io/laravel-flag-icons/">
 
+    <!-- FIX 1: Correct canonical URL -->
+    <link rel="canonical" href="https://pola5h.github.io/FlagIcons/">
+
+    <!-- FIX 4: Favicon to prevent wasted 404 request -->
+    <link rel="icon" href="data:,">
+
+    <!-- FIX 3: Open Graph with correct URL + image -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
     <meta property="og:description"
         content="Display country and language flag icons in Laravel Blade with one component. 250+ countries, 100+ languages. Free & MIT licensed.">
-    <meta property="og:url" content="https://pola5h.github.io/laravel-flag-icons/">
+    <meta property="og:url" content="https://pola5h.github.io/FlagIcons/">
     <meta property="og:site_name" content="pola5h">
+    <meta property="og:image" content="https://pola5h.github.io/FlagIcons/og-image.png">
 
+    <!-- FIX 6: Twitter card with image -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
     <meta name="twitter:description"
         content="Display country and language flags in Laravel with one Blade component. Free, MIT licensed.">
+    <meta name="twitter:image" content="https://pola5h.github.io/FlagIcons/og-image.png">
 
     <script type="application/ld+json">
     {
@@ -31,7 +40,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Linux, macOS, Windows",
         "description": "A free Laravel package to display country and language flag icons using Twitter Twemoji via a simple Blade component. Supports 250+ countries and 100+ languages.",
-        "url": "https://pola5h.github.io/laravel-flag-icons/",
+        "url": "https://pola5h.github.io/FlagIcons/",
         "downloadUrl": "https://github.com/Pola5h/FlagIcons",
         "offers": {
             "@type": "Offer",
@@ -100,11 +109,12 @@
     }
     </script>
 
+    <!-- FIX 3: dns-prefetch before preconnect for faster font loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -124,8 +134,9 @@
             box-sizing: border-box;
         }
 
+        /* FIX 2: Better font fallback stack */
         body {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
@@ -276,6 +287,7 @@
             overflow: hidden;
             margin: 3rem 0;
             mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
         }
 
         .flag-marquee {
@@ -290,13 +302,8 @@
         }
 
         @keyframes marquee {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
         .flag-item {
@@ -324,7 +331,7 @@
         }
 
         .flag-item .code {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.7rem;
             color: var(--muted);
         }
@@ -338,7 +345,7 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 0.9rem 1.4rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.95rem;
             margin-bottom: 1rem;
         }
@@ -363,7 +370,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', system-ui, sans-serif;
         }
 
         .copy-btn:hover {
@@ -376,6 +383,8 @@
             color: var(--muted);
             font-size: 0.83rem;
             font-weight: 600;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .hero-meta span {
@@ -444,26 +453,13 @@
             background: rgba(255, 255, 255, 0.02);
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .dot-r {
-            background: #ff5f57;
-        }
-
-        .dot-y {
-            background: #febc2e;
-        }
-
-        .dot-g {
-            background: #28c840;
-        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-r { background: #ff5f57; }
+        .dot-y { background: #febc2e; }
+        .dot-g { background: #28c840; }
 
         .code-card-title {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.78rem;
             color: var(--muted);
             margin-left: 0.4rem;
@@ -471,32 +467,18 @@
 
         .code-card pre {
             padding: 1.4rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.83rem;
             line-height: 1.8;
             overflow-x: auto;
             color: #94a3b8;
         }
 
-        .c-green {
-            color: #4ade80;
-        }
-
-        .c-blue {
-            color: #60a5fa;
-        }
-
-        .c-orange {
-            color: #fb923c;
-        }
-
-        .c-purple {
-            color: #c084fc;
-        }
-
-        .c-comment {
-            color: #475569;
-        }
+        .c-green { color: #4ade80; }
+        .c-blue { color: #60a5fa; }
+        .c-orange { color: #fb923c; }
+        .c-purple { color: #c084fc; }
+        .c-comment { color: #475569; }
 
         /* PREVIEW */
         .preview-section {
@@ -527,20 +509,10 @@
             background: rgba(249, 115, 22, 0.05);
         }
 
-        .flag-card .f {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-
-        .flag-card .name {
-            font-size: 0.68rem;
-            color: var(--muted);
-            font-weight: 600;
-        }
-
+        .flag-card .f { font-size: 2rem; display: block; margin-bottom: 0.4rem; }
+        .flag-card .name { font-size: 0.68rem; color: var(--muted); font-weight: 600; }
         .flag-card .iso {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.65rem;
             color: rgba(249, 115, 22, 0.7);
             margin-top: 0.2rem;
@@ -566,11 +538,7 @@
             transform: translateY(-3px);
         }
 
-        .feat-icon {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
+        .feat-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
 
         .feat h3 {
             font-size: 1rem;
@@ -579,11 +547,7 @@
             letter-spacing: -0.01em;
         }
 
-        .feat p {
-            font-size: 0.88rem;
-            color: var(--muted);
-            line-height: 1.6;
-        }
+        .feat p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
         /* FAQ */
         .faq-list {
@@ -600,9 +564,7 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .faq-item:last-child {
-            border-bottom: none;
-        }
+        .faq-item:last-child { border-bottom: none; }
 
         .faq-q {
             width: 100%;
@@ -610,7 +572,7 @@
             border: none;
             padding: 1.4rem 1.8rem;
             text-align: left;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Syne', system-ui, sans-serif;
             font-size: 0.97rem;
             font-weight: 700;
             color: var(--text);
@@ -622,9 +584,7 @@
             transition: background 0.2s;
         }
 
-        .faq-q:hover {
-            background: rgba(249, 115, 22, 0.05);
-        }
+        .faq-q:hover { background: rgba(249, 115, 22, 0.05); }
 
         .faq-q .arrow {
             color: var(--accent);
@@ -633,9 +593,7 @@
             flex-shrink: 0;
         }
 
-        .faq-item.open .faq-q .arrow {
-            transform: rotate(45deg);
-        }
+        .faq-item.open .faq-q .arrow { transform: rotate(45deg); }
 
         .faq-a {
             display: none;
@@ -645,12 +603,10 @@
             line-height: 1.7;
         }
 
-        .faq-item.open .faq-a {
-            display: block;
-        }
+        .faq-item.open .faq-a { display: block; }
 
         .faq-a code {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             background: rgba(249, 115, 22, 0.1);
             color: var(--accent);
             padding: 0.1rem 0.4rem;
@@ -678,18 +634,9 @@
             margin-bottom: 1rem;
         }
 
-        .cta-inner p {
-            color: var(--muted);
-            margin-bottom: 2.5rem;
-            font-size: 1rem;
-        }
+        .cta-inner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1rem; }
 
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
         .btn-primary {
             background: var(--accent);
@@ -705,10 +652,7 @@
             gap: 0.5rem;
         }
 
-        .btn-primary:hover {
-            background: var(--accent2);
-            transform: translateY(-2px);
-        }
+        .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
 
         .btn-ghost {
             background: transparent;
@@ -725,11 +669,7 @@
             gap: 0.5rem;
         }
 
-        .btn-ghost:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
         /* FOOTER */
         footer {
@@ -742,21 +682,8 @@
             z-index: 1;
         }
 
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* DIVIDER */
-        .divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 0;
-        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
 
         /* Animations */
         .fade-up {
@@ -765,31 +692,15 @@
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .usage-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .flag-grid {
-                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            }
-
-            .hero h1 {
-                font-size: 2.4rem;
-            }
+            .usage-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .flag-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+            .hero h1 { font-size: 2.4rem; }
+            .install-wrap { font-size: 0.8rem; flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -843,168 +754,47 @@
         <!-- Flag marquee -->
         <div class="flag-marquee-wrap" style="margin-top:3rem;">
             <div class="flag-marquee" id="marquee">
-                <!-- First set -->
-                <div class="flag-item">
-                    <div class="flag">🇺🇸</div>
-                    <div class="code">us</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇬🇧</div>
-                    <div class="code">gb</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇧🇩</div>
-                    <div class="code">bd</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇩🇪</div>
-                    <div class="code">de</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇫🇷</div>
-                    <div class="code">fr</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇯🇵</div>
-                    <div class="code">jp</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇧🇷</div>
-                    <div class="code">br</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇮🇳</div>
-                    <div class="code">in</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇨🇦</div>
-                    <div class="code">ca</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇦🇺</div>
-                    <div class="code">au</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇰🇷</div>
-                    <div class="code">kr</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇨🇳</div>
-                    <div class="code">cn</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇲🇽</div>
-                    <div class="code">mx</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇮🇩</div>
-                    <div class="code">id</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇳🇱</div>
-                    <div class="code">nl</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇸🇬</div>
-                    <div class="code">sg</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇸🇦</div>
-                    <div class="code">sa</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇿🇦</div>
-                    <div class="code">za</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇦🇷</div>
-                    <div class="code">ar</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇵🇰</div>
-                    <div class="code">pk</div>
-                </div>
+                <div class="flag-item"><div class="flag">🇺🇸</div><div class="code">us</div></div>
+                <div class="flag-item"><div class="flag">🇬🇧</div><div class="code">gb</div></div>
+                <div class="flag-item"><div class="flag">🇧🇩</div><div class="code">bd</div></div>
+                <div class="flag-item"><div class="flag">🇩🇪</div><div class="code">de</div></div>
+                <div class="flag-item"><div class="flag">🇫🇷</div><div class="code">fr</div></div>
+                <div class="flag-item"><div class="flag">🇯🇵</div><div class="code">jp</div></div>
+                <div class="flag-item"><div class="flag">🇧🇷</div><div class="code">br</div></div>
+                <div class="flag-item"><div class="flag">🇮🇳</div><div class="code">in</div></div>
+                <div class="flag-item"><div class="flag">🇨🇦</div><div class="code">ca</div></div>
+                <div class="flag-item"><div class="flag">🇦🇺</div><div class="code">au</div></div>
+                <div class="flag-item"><div class="flag">🇰🇷</div><div class="code">kr</div></div>
+                <div class="flag-item"><div class="flag">🇨🇳</div><div class="code">cn</div></div>
+                <div class="flag-item"><div class="flag">🇲🇽</div><div class="code">mx</div></div>
+                <div class="flag-item"><div class="flag">🇮🇩</div><div class="code">id</div></div>
+                <div class="flag-item"><div class="flag">🇳🇱</div><div class="code">nl</div></div>
+                <div class="flag-item"><div class="flag">🇸🇬</div><div class="code">sg</div></div>
+                <div class="flag-item"><div class="flag">🇸🇦</div><div class="code">sa</div></div>
+                <div class="flag-item"><div class="flag">🇿🇦</div><div class="code">za</div></div>
+                <div class="flag-item"><div class="flag">🇦🇷</div><div class="code">ar</div></div>
+                <div class="flag-item"><div class="flag">🇵🇰</div><div class="code">pk</div></div>
                 <!-- Duplicate for infinite scroll -->
-                <div class="flag-item">
-                    <div class="flag">🇺🇸</div>
-                    <div class="code">us</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇬🇧</div>
-                    <div class="code">gb</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇧🇩</div>
-                    <div class="code">bd</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇩🇪</div>
-                    <div class="code">de</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇫🇷</div>
-                    <div class="code">fr</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇯🇵</div>
-                    <div class="code">jp</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇧🇷</div>
-                    <div class="code">br</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇮🇳</div>
-                    <div class="code">in</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇨🇦</div>
-                    <div class="code">ca</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇦🇺</div>
-                    <div class="code">au</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇰🇷</div>
-                    <div class="code">kr</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇨🇳</div>
-                    <div class="code">cn</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇲🇽</div>
-                    <div class="code">mx</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇮🇩</div>
-                    <div class="code">id</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇳🇱</div>
-                    <div class="code">nl</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇸🇬</div>
-                    <div class="code">sg</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇸🇦</div>
-                    <div class="code">sa</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇿🇦</div>
-                    <div class="code">za</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇦🇷</div>
-                    <div class="code">ar</div>
-                </div>
-                <div class="flag-item">
-                    <div class="flag">🇵🇰</div>
-                    <div class="code">pk</div>
-                </div>
+                <div class="flag-item"><div class="flag">🇺🇸</div><div class="code">us</div></div>
+                <div class="flag-item"><div class="flag">🇬🇧</div><div class="code">gb</div></div>
+                <div class="flag-item"><div class="flag">🇧🇩</div><div class="code">bd</div></div>
+                <div class="flag-item"><div class="flag">🇩🇪</div><div class="code">de</div></div>
+                <div class="flag-item"><div class="flag">🇫🇷</div><div class="code">fr</div></div>
+                <div class="flag-item"><div class="flag">🇯🇵</div><div class="code">jp</div></div>
+                <div class="flag-item"><div class="flag">🇧🇷</div><div class="code">br</div></div>
+                <div class="flag-item"><div class="flag">🇮🇳</div><div class="code">in</div></div>
+                <div class="flag-item"><div class="flag">🇨🇦</div><div class="code">ca</div></div>
+                <div class="flag-item"><div class="flag">🇦🇺</div><div class="code">au</div></div>
+                <div class="flag-item"><div class="flag">🇰🇷</div><div class="code">kr</div></div>
+                <div class="flag-item"><div class="flag">🇨🇳</div><div class="code">cn</div></div>
+                <div class="flag-item"><div class="flag">🇲🇽</div><div class="code">mx</div></div>
+                <div class="flag-item"><div class="flag">🇮🇩</div><div class="code">id</div></div>
+                <div class="flag-item"><div class="flag">🇳🇱</div><div class="code">nl</div></div>
+                <div class="flag-item"><div class="flag">🇸🇬</div><div class="code">sg</div></div>
+                <div class="flag-item"><div class="flag">🇸🇦</div><div class="code">sa</div></div>
+                <div class="flag-item"><div class="flag">🇿🇦</div><div class="code">za</div></div>
+                <div class="flag-item"><div class="flag">🇦🇷</div><div class="code">ar</div></div>
+                <div class="flag-item"><div class="flag">🇵🇰</div><div class="code">pk</div></div>
             </div>
         </div>
     </section>
@@ -1020,9 +810,7 @@
             <div class="usage-grid fade-up">
                 <div class="code-card">
                     <div class="code-card-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
                         <span class="code-card-title">country-flags.blade.php</span>
                     </div>
                     <pre><span class="c-comment">{{-- Country flag by ISO code --}}</span>
@@ -1043,9 +831,7 @@
 
                 <div class="code-card">
                     <div class="code-card-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
                         <span class="code-card-title">language-flags.blade.php</span>
                     </div>
                     <pre><span class="c-comment">{{-- Language flag by ISO code --}}</span>
@@ -1066,9 +852,7 @@
 
                 <div class="code-card">
                     <div class="code-card-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
                         <span class="code-card-title">terminal</span>
                     </div>
                     <pre><span class="c-comment"># 1. Install via Composer</span>
@@ -1083,9 +867,7 @@
 
                 <div class="code-card">
                     <div class="code-card-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
                         <span class="code-card-title">locale-switcher-example.blade.php</span>
                     </div>
                     <pre><span class="c-comment">{{-- Locale switcher with flags --}}</span>
@@ -1113,30 +895,18 @@
                 platforms. No SVG files to manage.</p>
 
             <div class="flag-grid fade-up">
-                <div class="flag-card"><span class="f">🇺🇸</span><span class="name">United States</span><span
-                        class="iso">us</span></div>
-                <div class="flag-card"><span class="f">🇬🇧</span><span class="name">United Kingdom</span><span
-                        class="iso">gb</span></div>
-                <div class="flag-card"><span class="f">🇧🇩</span><span class="name">Bangladesh</span><span
-                        class="iso">bd</span></div>
-                <div class="flag-card"><span class="f">🇩🇪</span><span class="name">Germany</span><span
-                        class="iso">de</span></div>
-                <div class="flag-card"><span class="f">🇫🇷</span><span class="name">France</span><span
-                        class="iso">fr</span></div>
-                <div class="flag-card"><span class="f">🇯🇵</span><span class="name">Japan</span><span
-                        class="iso">jp</span></div>
-                <div class="flag-card"><span class="f">🇧🇷</span><span class="name">Brazil</span><span
-                        class="iso">br</span></div>
-                <div class="flag-card"><span class="f">🇮🇳</span><span class="name">India</span><span
-                        class="iso">in</span></div>
-                <div class="flag-card"><span class="f">🇨🇦</span><span class="name">Canada</span><span
-                        class="iso">ca</span></div>
-                <div class="flag-card"><span class="f">🇦🇺</span><span class="name">Australia</span><span
-                        class="iso">au</span></div>
-                <div class="flag-card"><span class="f">🇰🇷</span><span class="name">South Korea</span><span
-                        class="iso">kr</span></div>
-                <div class="flag-card"><span class="f">🇸🇬</span><span class="name">Singapore</span><span
-                        class="iso">sg</span></div>
+                <div class="flag-card"><span class="f">🇺🇸</span><span class="name">United States</span><span class="iso">us</span></div>
+                <div class="flag-card"><span class="f">🇬🇧</span><span class="name">United Kingdom</span><span class="iso">gb</span></div>
+                <div class="flag-card"><span class="f">🇧🇩</span><span class="name">Bangladesh</span><span class="iso">bd</span></div>
+                <div class="flag-card"><span class="f">🇩🇪</span><span class="name">Germany</span><span class="iso">de</span></div>
+                <div class="flag-card"><span class="f">🇫🇷</span><span class="name">France</span><span class="iso">fr</span></div>
+                <div class="flag-card"><span class="f">🇯🇵</span><span class="name">Japan</span><span class="iso">jp</span></div>
+                <div class="flag-card"><span class="f">🇧🇷</span><span class="name">Brazil</span><span class="iso">br</span></div>
+                <div class="flag-card"><span class="f">🇮🇳</span><span class="name">India</span><span class="iso">in</span></div>
+                <div class="flag-card"><span class="f">🇨🇦</span><span class="name">Canada</span><span class="iso">ca</span></div>
+                <div class="flag-card"><span class="f">🇦🇺</span><span class="name">Australia</span><span class="iso">au</span></div>
+                <div class="flag-card"><span class="f">🇰🇷</span><span class="name">South Korea</span><span class="iso">kr</span></div>
+                <div class="flag-card"><span class="f">🇸🇬</span><span class="name">Singapore</span><span class="iso">sg</span></div>
             </div>
         </div>
     </section>
@@ -1152,38 +922,32 @@
                 <div class="feat">
                     <span class="feat-icon">🌍</span>
                     <h3>250+ Country Flags</h3>
-                    <p>Every country in the world is covered using ISO 3166-1 alpha-2 codes. From Afghanistan to
-                        Zimbabwe.</p>
+                    <p>Every country in the world is covered using ISO 3166-1 alpha-2 codes. From Afghanistan to Zimbabwe.</p>
                 </div>
                 <div class="feat">
                     <span class="feat-icon">💬</span>
                     <h3>100+ Language Flags</h3>
-                    <p>Language flags mapped to the primary country for that language. Bengali → Bangladesh, Arabic →
-                        Saudi Arabia.</p>
+                    <p>Language flags mapped to the primary country for that language. Bengali → Bangladesh, Arabic → Saudi Arabia.</p>
                 </div>
                 <div class="feat">
                     <span class="feat-icon">✨</span>
                     <h3>Twemoji Style</h3>
-                    <p>Uses Twitter's Twemoji emoji set — the same friendly flags users see on their phones. Familiar
-                        and consistent.</p>
+                    <p>Uses Twitter's Twemoji emoji set — the same friendly flags users see on their phones. Familiar and consistent.</p>
                 </div>
                 <div class="feat">
                     <span class="feat-icon">⚡</span>
                     <h3>Zero Config</h3>
-                    <p>Auto-registered on Laravel 5.5+. Install, use. No publishing, no config files, no setup steps.
-                    </p>
+                    <p>Auto-registered on Laravel 5.5+. Install, use. No publishing, no config files, no setup steps.</p>
                 </div>
                 <div class="feat">
                     <span class="feat-icon">📐</span>
                     <h3>Resizable</h3>
-                    <p>Pass width and height as component attributes. Works at any size from tiny inline icons to large
-                        display flags.</p>
+                    <p>Pass width and height as component attributes. Works at any size from tiny inline icons to large display flags.</p>
                 </div>
                 <div class="feat">
                     <span class="feat-icon">🆓</span>
                     <h3>Free & MIT</h3>
-                    <p>Completely free, open source, MIT licensed. Use it in any personal or commercial project without
-                        restrictions.</p>
+                    <p>Completely free, open source, MIT licensed. Use it in any personal or commercial project without restrictions.</p>
                 </div>
             </div>
         </div>
@@ -1284,14 +1048,12 @@
     </footer>
 
     <script>
-        // Copy install command
         function copyInstall(btn) {
             navigator.clipboard.writeText('composer require pola5h/laravel-flags');
             btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 2000);
         }
 
-        // FAQ toggle
         function toggleFaq(btn) {
             const item = btn.closest('.faq-item');
             const isOpen = item.classList.contains('open');
@@ -1299,7 +1061,6 @@
             if (!isOpen) item.classList.add('open');
         }
 
-        // Fade up on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1 });
@@ -1307,5 +1068,4 @@
     </script>
 
 </body>
-
 </html>
