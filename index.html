@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Flag Icons — Country & Language Flags via Blade Component</title>
+    <meta name="description" content="Display country and language flag icons in Laravel Blade with one component. Uses Twitter Twemoji emoji flags. Supports 250+ countries and 100+ languages. Free, MIT licensed.">
+    <meta name="author" content="Kamruzzaman Polash">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://pola5h.github.io/laravel-flag-icons/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
+    <meta property="og:description" content="Display country and language flag icons in Laravel Blade with one component. 250+ countries, 100+ languages. Free & MIT licensed.">
+    <meta property="og:url" content="https://pola5h.github.io/laravel-flag-icons/">
+    <meta property="og:site_name" content="pola5h">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
+    <meta name="twitter:description" content="Display country and language flags in Laravel with one Blade component. Free, MIT licensed.">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Laravel Flag Icons",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Linux, macOS, Windows",
+        "description": "A free Laravel package to display country and language flag icons using Twitter Twemoji via a simple Blade component. Supports 250+ countries and 100+ languages.",
+        "url": "https://pola5h.github.io/laravel-flag-icons/",
+        "downloadUrl": "https://github.com/Pola5h/FlagIcons",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Kamruzzaman Polash",
+            "url": "https://pola5h.github.io/"
+        },
+        "keywords": "laravel flag icons, laravel country flag blade component, laravel language flags, twemoji flags laravel, laravel blade flag component",
+        "softwareVersion": "1.0.1",
+        "programmingLanguage": "PHP",
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How do I display a country flag in Laravel Blade?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Install the package with composer require pola5h/laravel-flags, then use the Blade component: <x-flag-icon type=\"country\" code=\"us\" />. Replace 'us' with any ISO 2-letter country code."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What flag style does this package use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Laravel Flag Icons uses the Twitter Twemoji emoji flag set — the same emoji-style flags you see on phones and social media. This gives a friendly, modern look compared to traditional rectangular SVG flags."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it support language flags?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — use type=\"language\" with an ISO language code: <x-flag-icon type=\"language\" code=\"bn\" />. Language flags map to the country most associated with that language — e.g. Bengali maps to Bangladesh."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this package free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, completely free and MIT licensed. Use it in any personal or commercial project with no restrictions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How many countries and languages are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The package supports 250+ countries and 100+ languages using ISO 2-letter codes for both."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #111118;
+            --border: #1e1e2e;
+            --accent: #f97316;
+            --accent2: #fb923c;
+            --text: #e2e8f0;
+            --muted: #64748b;
+            --code-bg: #0d0d14;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* NAV */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,15,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo .flag-preview { font-size: 1.3rem; }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background: var(--accent);
+            color: #000;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(249,115,22,0.1);
+            border: 1px solid rgba(249,115,22,0.25);
+            color: var(--accent);
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .accent { color: var(--accent); }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        /* Flag marquee */
+        .flag-marquee-wrap {
+            width: 100%;
+            overflow: hidden;
+            margin: 3rem 0;
+            mask-image: linear-gradient(90deg, transparent, black 15%, black 85%, transparent);
+        }
+
+        .flag-marquee {
+            display: flex;
+            gap: 1rem;
+            animation: marquee 25s linear infinite;
+            width: max-content;
+        }
+
+        .flag-marquee:hover { animation-play-state: paused; }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .flag-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.8rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            min-width: 80px;
+            transition: border-color 0.2s, transform 0.2s;
+            cursor: default;
+        }
+
+        .flag-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .flag-item .flag { font-size: 1.8rem; line-height: 1; }
+        .flag-item .code { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+
+        /* Install command */
+        .install-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.9rem 1.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .install-wrap .prompt { color: var(--accent); font-weight: 500; }
+        .install-wrap .cmd { color: #94a3b8; }
+        .copy-btn {
+            margin-left: auto;
+            background: rgba(249,115,22,0.1);
+            border: 1px solid rgba(249,115,22,0.2);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Syne', sans-serif;
+        }
+        .copy-btn:hover { background: rgba(249,115,22,0.2); }
+
+        .hero-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--muted);
+            font-size: 0.83rem;
+            font-weight: 600;
+        }
+
+        .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* SECTIONS */
+        section { position: relative; z-index: 1; }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        /* USAGE */
+        .usage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .code-card {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .code-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot-r { background: #ff5f57; }
+        .dot-y { background: #febc2e; }
+        .dot-g { background: #28c840; }
+
+        .code-card-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-left: 0.4rem;
+        }
+
+        .code-card pre {
+            padding: 1.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            color: #94a3b8;
+        }
+
+        .c-green { color: #4ade80; }
+        .c-blue { color: #60a5fa; }
+        .c-orange { color: #fb923c; }
+        .c-purple { color: #c084fc; }
+        .c-comment { color: #475569; }
+
+        /* PREVIEW */
+        .preview-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+
+        .flag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .flag-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .flag-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            background: rgba(249,115,22,0.05);
+        }
+
+        .flag-card .f { font-size: 2rem; display: block; margin-bottom: 0.4rem; }
+        .flag-card .name { font-size: 0.68rem; color: var(--muted); font-weight: 600; }
+        .flag-card .iso { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: rgba(249,115,22,0.7); margin-top: 0.2rem; }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+
+        .feat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .feat:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-3px); }
+
+        .feat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feat h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feat p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+        /* FAQ */
+        .faq-list { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+        .faq-item {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.4rem 1.8rem;
+            text-align: left;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.97rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+
+        .faq-q:hover { background: rgba(249,115,22,0.05); }
+        .faq-q .arrow { color: var(--accent); font-size: 1.1rem; transition: transform 0.2s; flex-shrink: 0; }
+        .faq-item.open .faq-q .arrow { transform: rotate(45deg); }
+
+        .faq-a {
+            display: none;
+            padding: 0 1.8rem 1.4rem;
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-a { display: block; }
+        .faq-a code { font-family: 'JetBrains Mono', monospace; background: rgba(249,115,22,0.1); color: var(--accent); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.03));
+            border-top: 1px solid rgba(249,115,22,0.15);
+        }
+
+        .cta-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-inner h2 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .cta-inner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1rem; }
+
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.83rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* DIVIDER */
+        .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+        /* Animations */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .usage-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .flag-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+            .hero h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">
+            <span class="flag-preview">🏳️</span>
+            <span>Laravel<span style="color:var(--accent)">Flags</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#usage">Usage</a>
+            <a href="#preview">Preview</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://pola5h.github.io/" target="_blank">Portfolio</a>
+        </div>
+        <a href="https://github.com/Pola5h/FlagIcons" target="_blank" class="nav-cta">GitHub →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+
+        <div class="badge">⚡ Free · MIT Licensed · Laravel 5.5+</div>
+
+        <h1>
+            Country & Language<br>
+            <span class="accent">Flag Icons</span> for Laravel
+        </h1>
+
+        <p class="hero-sub">
+            Display emoji-style flag icons anywhere in your Blade templates with a single component. 250+ countries, 100+ languages. Powered by Twitter Twemoji.
+        </p>
+
+        <div class="install-wrap">
+            <span class="prompt">$</span>
+            <span class="cmd">composer require pola5h/laravel-flags</span>
+            <button class="copy-btn" onclick="copyInstall(this)">Copy</button>
+        </div>
+
+        <div class="hero-meta">
+            <span>🌍 250+ Countries</span>
+            <span>💬 100+ Languages</span>
+            <span>✨ Twemoji Style</span>
+            <span>🆓 Free Forever</span>
+        </div>
+
+        <!-- Flag marquee -->
+        <div class="flag-marquee-wrap" style="margin-top:3rem;">
+            <div class="flag-marquee" id="marquee">
+                <!-- First set -->
+                <div class="flag-item"><div class="flag">🇺🇸</div><div class="code">us</div></div>
+                <div class="flag-item"><div class="flag">🇬🇧</div><div class="code">gb</div></div>
+                <div class="flag-item"><div class="flag">🇧🇩</div><div class="code">bd</div></div>
+                <div class="flag-item"><div class="flag">🇩🇪</div><div class="code">de</div></div>
+                <div class="flag-item"><div class="flag">🇫🇷</div><div class="code">fr</div></div>
+                <div class="flag-item"><div class="flag">🇯🇵</div><div class="code">jp</div></div>
+                <div class="flag-item"><div class="flag">🇧🇷</div><div class="code">br</div></div>
+                <div class="flag-item"><div class="flag">🇮🇳</div><div class="code">in</div></div>
+                <div class="flag-item"><div class="flag">🇨🇦</div><div class="code">ca</div></div>
+                <div class="flag-item"><div class="flag">🇦🇺</div><div class="code">au</div></div>
+                <div class="flag-item"><div class="flag">🇰🇷</div><div class="code">kr</div></div>
+                <div class="flag-item"><div class="flag">🇨🇳</div><div class="code">cn</div></div>
+                <div class="flag-item"><div class="flag">🇲🇽</div><div class="code">mx</div></div>
+                <div class="flag-item"><div class="flag">🇮🇩</div><div class="code">id</div></div>
+                <div class="flag-item"><div class="flag">🇳🇱</div><div class="code">nl</div></div>
+                <div class="flag-item"><div class="flag">🇸🇬</div><div class="code">sg</div></div>
+                <div class="flag-item"><div class="flag">🇸🇦</div><div class="code">sa</div></div>
+                <div class="flag-item"><div class="flag">🇿🇦</div><div class="code">za</div></div>
+                <div class="flag-item"><div class="flag">🇦🇷</div><div class="code">ar</div></div>
+                <div class="flag-item"><div class="flag">🇵🇰</div><div class="code">pk</div></div>
+                <!-- Duplicate for infinite scroll -->
+                <div class="flag-item"><div class="flag">🇺🇸</div><div class="code">us</div></div>
+                <div class="flag-item"><div class="flag">🇬🇧</div><div class="code">gb</div></div>
+                <div class="flag-item"><div class="flag">🇧🇩</div><div class="code">bd</div></div>
+                <div class="flag-item"><div class="flag">🇩🇪</div><div class="code">de</div></div>
+                <div class="flag-item"><div class="flag">🇫🇷</div><div class="code">fr</div></div>
+                <div class="flag-item"><div class="flag">🇯🇵</div><div class="code">jp</div></div>
+                <div class="flag-item"><div class="flag">🇧🇷</div><div class="code">br</div></div>
+                <div class="flag-item"><div class="flag">🇮🇳</div><div class="code">in</div></div>
+                <div class="flag-item"><div class="flag">🇨🇦</div><div class="code">ca</div></div>
+                <div class="flag-item"><div class="flag">🇦🇺</div><div class="code">au</div></div>
+                <div class="flag-item"><div class="flag">🇰🇷</div><div class="code">kr</div></div>
+                <div class="flag-item"><div class="flag">🇨🇳</div><div class="code">cn</div></div>
+                <div class="flag-item"><div class="flag">🇲🇽</div><div class="code">mx</div></div>
+                <div class="flag-item"><div class="flag">🇮🇩</div><div class="code">id</div></div>
+                <div class="flag-item"><div class="flag">🇳🇱</div><div class="code">nl</div></div>
+                <div class="flag-item"><div class="flag">🇸🇬</div><div class="code">sg</div></div>
+                <div class="flag-item"><div class="flag">🇸🇦</div><div class="code">sa</div></div>
+                <div class="flag-item"><div class="flag">🇿🇦</div><div class="code">za</div></div>
+                <div class="flag-item"><div class="flag">🇦🇷</div><div class="code">ar</div></div>
+                <div class="flag-item"><div class="flag">🇵🇰</div><div class="code">pk</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USAGE -->
+    <section id="usage" style="border-top:1px solid var(--border);">
+        <div class="section-inner">
+            <div class="section-label fade-up">Usage</div>
+            <h2 class="section-title fade-up">One component. Any flag.</h2>
+            <p class="section-desc fade-up">Install the package, use the Blade component anywhere in your views. No config required — it just works.</p>
+
+            <div class="usage-grid fade-up">
+                <div class="code-card">
+                    <div class="code-card-header">
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                        <span class="code-card-title">country-flags.blade.php</span>
+                    </div>
+                    <pre><span class="c-comment">{{-- Country flag by ISO code --}}</span>
+<span class="c-blue">&lt;x-flag-icon</span>
+  <span class="c-orange">type</span>=<span class="c-green">"country"</span>
+  <span class="c-orange">code</span>=<span class="c-green">"us"</span>
+  <span class="c-orange">width</span>=<span class="c-green">"24px"</span>
+  <span class="c-orange">height</span>=<span class="c-green">"24px"</span>
+<span class="c-blue">/&gt;</span>
+
+<span class="c-comment">{{-- Dynamic from model --}}</span>
+<span class="c-blue">&lt;x-flag-icon</span>
+  <span class="c-orange">type</span>=<span class="c-green">"country"</span>
+  <span class="c-orange">code</span>=<span class="c-purple">"{{ $user->country_code }}"</span>
+  <span class="c-orange">width</span>=<span class="c-green">"20px"</span>
+<span class="c-blue">/&gt;</span></pre>
+                </div>
+
+                <div class="code-card">
+                    <div class="code-card-header">
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                        <span class="code-card-title">language-flags.blade.php</span>
+                    </div>
+                    <pre><span class="c-comment">{{-- Language flag by ISO code --}}</span>
+<span class="c-blue">&lt;x-flag-icon</span>
+  <span class="c-orange">type</span>=<span class="c-green">"language"</span>
+  <span class="c-orange">code</span>=<span class="c-green">"bn"</span>
+  <span class="c-orange">width</span>=<span class="c-green">"24px"</span>
+  <span class="c-orange">height</span>=<span class="c-green">"24px"</span>
+<span class="c-blue">/&gt;</span>
+
+<span class="c-comment">{{-- Dynamic locale switcher --}}</span>
+<span class="c-blue">&lt;x-flag-icon</span>
+  <span class="c-orange">type</span>=<span class="c-green">"language"</span>
+  <span class="c-orange">code</span>=<span class="c-purple">"{{ app()->getLocale() }}"</span>
+  <span class="c-orange">width</span>=<span class="c-green">"20px"</span>
+<span class="c-blue">/&gt;</span></pre>
+                </div>
+
+                <div class="code-card">
+                    <div class="code-card-header">
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                        <span class="code-card-title">terminal</span>
+                    </div>
+                    <pre><span class="c-comment"># 1. Install via Composer</span>
+<span class="c-green">$</span> composer require pola5h/laravel-flags
+
+<span class="c-comment"># 2. Auto-registered on Laravel 5.5+</span>
+<span class="c-comment">#    No manual config needed</span>
+
+<span class="c-comment"># 3. Use anywhere in Blade</span>
+<span class="c-blue">&lt;x-flag-icon</span> <span class="c-orange">type</span>=<span class="c-green">"country"</span> <span class="c-orange">code</span>=<span class="c-green">"bd"</span> <span class="c-blue">/&gt;</span></pre>
+                </div>
+
+                <div class="code-card">
+                    <div class="code-card-header">
+                        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                        <span class="code-card-title">locale-switcher-example.blade.php</span>
+                    </div>
+                    <pre><span class="c-comment">{{-- Locale switcher with flags --}}</span>
+<span class="c-blue">@foreach</span> <span class="c-purple">($locales as $locale)</span>
+  <span class="c-blue">&lt;a</span> <span class="c-orange">href</span>=<span class="c-purple">"{{ route('locale', $locale) }}"</span><span class="c-blue">&gt;</span>
+    <span class="c-blue">&lt;x-flag-icon</span>
+      <span class="c-orange">type</span>=<span class="c-green">"language"</span>
+      <span class="c-orange">code</span>=<span class="c-purple">"{{ $locale }}"</span>
+      <span class="c-orange">width</span>=<span class="c-green">"18px"</span>
+    <span class="c-blue">/&gt;</span>
+    <span class="c-purple">{{ strtoupper($locale) }}</span>
+  <span class="c-blue">&lt;/a&gt;</span>
+<span class="c-blue">@endforeach</span></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLAG PREVIEW -->
+    <section id="preview" class="preview-section">
+        <div class="section-inner">
+            <div class="section-label fade-up">Preview</div>
+            <h2 class="section-title fade-up">Twemoji emoji flags</h2>
+            <p class="section-desc fade-up">The familiar emoji flag style — consistent across all browsers and platforms. No SVG files to manage.</p>
+
+            <div class="flag-grid fade-up">
+                <div class="flag-card"><span class="f">🇺🇸</span><span class="name">United States</span><span class="iso">us</span></div>
+                <div class="flag-card"><span class="f">🇬🇧</span><span class="name">United Kingdom</span><span class="iso">gb</span></div>
+                <div class="flag-card"><span class="f">🇧🇩</span><span class="name">Bangladesh</span><span class="iso">bd</span></div>
+                <div class="flag-card"><span class="f">🇩🇪</span><span class="name">Germany</span><span class="iso">de</span></div>
+                <div class="flag-card"><span class="f">🇫🇷</span><span class="name">France</span><span class="iso">fr</span></div>
+                <div class="flag-card"><span class="f">🇯🇵</span><span class="name">Japan</span><span class="iso">jp</span></div>
+                <div class="flag-card"><span class="f">🇧🇷</span><span class="name">Brazil</span><span class="iso">br</span></div>
+                <div class="flag-card"><span class="f">🇮🇳</span><span class="name">India</span><span class="iso">in</span></div>
+                <div class="flag-card"><span class="f">🇨🇦</span><span class="name">Canada</span><span class="iso">ca</span></div>
+                <div class="flag-card"><span class="f">🇦🇺</span><span class="name">Australia</span><span class="iso">au</span></div>
+                <div class="flag-card"><span class="f">🇰🇷</span><span class="name">South Korea</span><span class="iso">kr</span></div>
+                <div class="flag-card"><span class="f">🇸🇬</span><span class="name">Singapore</span><span class="iso">sg</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section style="border-top:1px solid var(--border);">
+        <div class="section-inner">
+            <div class="section-label fade-up">Features</div>
+            <h2 class="section-title fade-up">Everything you need</h2>
+            <p class="section-desc fade-up">Simple by design. No dependencies beyond Laravel itself.</p>
+
+            <div class="features-grid fade-up">
+                <div class="feat">
+                    <span class="feat-icon">🌍</span>
+                    <h3>250+ Country Flags</h3>
+                    <p>Every country in the world is covered using ISO 3166-1 alpha-2 codes. From Afghanistan to Zimbabwe.</p>
+                </div>
+                <div class="feat">
+                    <span class="feat-icon">💬</span>
+                    <h3>100+ Language Flags</h3>
+                    <p>Language flags mapped to the primary country for that language. Bengali → Bangladesh, Arabic → Saudi Arabia.</p>
+                </div>
+                <div class="feat">
+                    <span class="feat-icon">✨</span>
+                    <h3>Twemoji Style</h3>
+                    <p>Uses Twitter's Twemoji emoji set — the same friendly flags users see on their phones. Familiar and consistent.</p>
+                </div>
+                <div class="feat">
+                    <span class="feat-icon">⚡</span>
+                    <h3>Zero Config</h3>
+                    <p>Auto-registered on Laravel 5.5+. Install, use. No publishing, no config files, no setup steps.</p>
+                </div>
+                <div class="feat">
+                    <span class="feat-icon">📐</span>
+                    <h3>Resizable</h3>
+                    <p>Pass width and height as component attributes. Works at any size from tiny inline icons to large display flags.</p>
+                </div>
+                <div class="feat">
+                    <span class="feat-icon">🆓</span>
+                    <h3>Free & MIT</h3>
+                    <p>Completely free, open source, MIT licensed. Use it in any personal or commercial project without restrictions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" style="border-top:1px solid var(--border); background:var(--surface);">
+        <div class="section-inner">
+            <div class="section-label fade-up">FAQ</div>
+            <h2 class="section-title fade-up">Common questions</h2>
+
+            <div class="faq-list fade-up" style="margin-top:2rem;">
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        How do I display a country flag in Laravel Blade?
+                        <span class="arrow">+</span>
+                    </button>
+                    <div class="faq-a">
+                        Install with <code>composer require pola5h/laravel-flags</code>, then use the component: <code>&lt;x-flag-icon type="country" code="us" /&gt;</code>. Replace <code>us</code> with any ISO 2-letter country code like <code>bd</code>, <code>gb</code>, or <code>de</code>.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        What makes this different from other Laravel flag packages?
+                        <span class="arrow">+</span>
+                    </button>
+                    <div class="faq-a">
+                        This package uses the <strong>Twitter Twemoji emoji flag style</strong> — the same flags people see on their phones and social media. Other packages use SVG rectangular flags. Twemoji flags feel more familiar and modern, especially in user-facing interfaces like locale switchers.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        Does it support language flags?
+                        <span class="arrow">+</span>
+                    </button>
+                    <div class="faq-a">
+                        Yes — use <code>type="language"</code> with an ISO language code: <code>&lt;x-flag-icon type="language" code="bn" /&gt;</code>. Each language maps to the country most associated with it. Bengali (<code>bn</code>) maps to Bangladesh, Arabic (<code>ar</code>) maps to Saudi Arabia, and so on.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        Which Laravel versions are supported?
+                        <span class="arrow">+</span>
+                    </button>
+                    <div class="faq-a">
+                        Laravel 5.5 and above. The service provider is auto-registered on Laravel 5.5+ so no manual registration is needed. Compatible with Laravel 6, 7, 8, 9, 10, 11, and 12.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" onclick="toggleFaq(this)">
+                        Is it free to use in commercial projects?
+                        <span class="arrow">+</span>
+                    </button>
+                    <div class="faq-a">
+                        Yes, completely free and MIT licensed. Use it in any project — personal, commercial, or client work — with no restrictions or attribution required.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2 class="fade-up">Start displaying flags in minutes</h2>
+            <p class="fade-up">One composer command and you're done. Free forever.</p>
+            <div class="cta-buttons fade-up">
+                <a href="https://github.com/Pola5h/FlagIcons" target="_blank" class="btn-primary">
+                    View on GitHub →
+                </a>
+                <a href="https://pola5h.github.io/" target="_blank" class="btn-ghost">
+                    More by Polash
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            Laravel Flag Icons · Built by <a href="https://pola5h.github.io/">Kamruzzaman Polash</a> ·
+            <a href="https://github.com/Pola5h/FlagIcons">GitHub</a> ·
+            MIT License · © 2026
+        </p>
+        <p style="margin-top:0.5rem; font-size:0.75rem;">
+            Also check out: <a href="https://pola5h.github.io/laravel-api-starter-kit/">Laravel API Starter Kit</a> ·
+            <a href="https://pola5h.github.io/blog/">Laravel Blog</a>
+        </p>
+    </footer>
+
+    <script>
+        // Copy install command
+        function copyInstall(btn) {
+            navigator.clipboard.writeText('composer require pola5h/laravel-flags');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+
+        // FAQ toggle
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        }
+
+        // Fade up on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
+
+ 
