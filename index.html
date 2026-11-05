@@ -11,7 +11,7 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
     <!-- FIX 1: Correct canonical URL -->
-    <link rel="canonical" href="https://pola5h.github.io/FlagIcons/">
+    <link rel="canonical" href="https://polash.link/FlagIcons/">
 
     <!-- FIX 4: Favicon to prevent wasted 404 request -->
     <link rel="icon" href="data:,">
@@ -21,16 +21,25 @@
     <meta property="og:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
     <meta property="og:description"
         content="Display country and language flag icons in Laravel Blade with one component. 250+ countries, 100+ languages. Free & MIT licensed.">
-    <meta property="og:url" content="https://pola5h.github.io/FlagIcons/">
+    <meta property="og:url" content="https://polash.link/FlagIcons/">
     <meta property="og:site_name" content="pola5h">
-    <meta property="og:image" content="https://pola5h.github.io/FlagIcons/og-image.png">
+    <meta property="og:image" content="https://polash.link/FlagIcons/og-image.png">
 
     <!-- FIX 6: Twitter card with image -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Laravel Flag Icons — Country & Language Flags via Blade Component">
     <meta name="twitter:description"
         content="Display country and language flags in Laravel with one Blade component. Free, MIT licensed.">
-    <meta name="twitter:image" content="https://pola5h.github.io/FlagIcons/og-image.png">
+    <meta name="twitter:image" content="https://polash.link/FlagIcons/og-image.png">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3R4PTV9GH"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Q3R4PTV9GH', { anonymize_ip: true });
+    </script>
 
     <script type="application/ld+json">
     {
@@ -40,7 +49,7 @@
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Linux, macOS, Windows",
         "description": "A free Laravel package to display country and language flag icons using Twitter Twemoji via a simple Blade component. Supports 250+ countries and 100+ languages.",
-        "url": "https://pola5h.github.io/FlagIcons/",
+        "url": "https://polash.link/FlagIcons/",
         "downloadUrl": "https://github.com/Pola5h/FlagIcons",
         "offers": {
             "@type": "Offer",
@@ -51,7 +60,7 @@
         "author": {
             "@type": "Person",
             "name": "Kamruzzaman Polash",
-            "url": "https://pola5h.github.io/"
+            "url": "https://polash.link/"
         },
         "keywords": "laravel flag icons, laravel country flag blade component, laravel language flags, twemoji flags laravel, laravel blade flag component",
         "softwareVersion": "1.0.1",
@@ -500,7 +509,7 @@
 
         .flag-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 0.8rem;
             margin-top: 2rem;
         }
@@ -512,6 +521,10 @@
             padding: 1rem 0.5rem;
             text-align: center;
             transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .flag-card:hover {
@@ -521,12 +534,24 @@
         }
 
         .flag-card .f { font-size: 2rem; display: block; margin-bottom: 0.4rem; }
-        .flag-card .name { font-size: 0.68rem; color: var(--muted); font-weight: 600; }
+        .flag-card .name { 
+            font-size: 0.68rem; 
+            color: var(--muted); 
+            font-weight: 600; 
+            display: block;
+            line-height: 1.25;
+            margin-bottom: 0.35rem;
+            word-break: break-word;
+        }
         .flag-card .iso {
+            display: inline-block;
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 0.65rem;
-            color: rgba(249, 115, 22, 0.7);
-            margin-top: 0.2rem;
+            color: rgba(249, 115, 22, 0.95);
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 4px;
+            padding: 0.05rem 0.4rem;
         }
 
         /* FEATURES */
@@ -709,7 +734,7 @@
             .usage-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .flag-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); }
+            .flag-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
             .hero h1 { font-size: 2.4rem; }
             .install-wrap { font-size: 0.8rem; flex-wrap: wrap; }
         }
@@ -728,7 +753,7 @@
             <a href="#usage">Usage</a>
             <a href="#preview">Preview</a>
             <a href="#faq">FAQ</a>
-            <a href="https://pola5h.github.io/" target="_blank">Portfolio</a>
+            <a href="https://polash.link/" target="_blank">Portfolio</a>
         </div>
         <a href="https://github.com/Pola5h/FlagIcons" target="_blank" class="nav-cta">GitHub →</a>
     </nav>
@@ -909,6 +934,7 @@
                 <div class="flag-card"><span class="f">🇺🇸</span><span class="name">United States</span><span class="iso">us</span></div>
                 <div class="flag-card"><span class="f">🇬🇧</span><span class="name">United Kingdom</span><span class="iso">gb</span></div>
                 <div class="flag-card"><span class="f">🇧🇩</span><span class="name">Bangladesh</span><span class="iso">bd</span></div>
+                <div class="flag-card"><span class="f">🇵🇸</span><span class="name">Palestine</span><span class="iso">ps</span></div>
                 <div class="flag-card"><span class="f">🇩🇪</span><span class="name">Germany</span><span class="iso">de</span></div>
                 <div class="flag-card"><span class="f">🇫🇷</span><span class="name">France</span><span class="iso">fr</span></div>
                 <div class="flag-card"><span class="f">🇯🇵</span><span class="name">Japan</span><span class="iso">jp</span></div>
@@ -918,6 +944,13 @@
                 <div class="flag-card"><span class="f">🇦🇺</span><span class="name">Australia</span><span class="iso">au</span></div>
                 <div class="flag-card"><span class="f">🇰🇷</span><span class="name">South Korea</span><span class="iso">kr</span></div>
                 <div class="flag-card"><span class="f">🇸🇬</span><span class="name">Singapore</span><span class="iso">sg</span></div>
+                <div class="flag-card"><span class="f">🇸🇦</span><span class="name">Saudi Arabia</span><span class="iso">sa</span></div>
+                <div class="flag-card"><span class="f">🇹🇷</span><span class="name">Turkey</span><span class="iso">tr</span></div>
+                <div class="flag-card"><span class="f">🇦🇪</span><span class="name">UAE</span><span class="iso">ae</span></div>
+                <div class="flag-card"><span class="f">🇮🇹</span><span class="name">Italy</span><span class="iso">it</span></div>
+                <div class="flag-card"><span class="f">🇪🇸</span><span class="name">Spain</span><span class="iso">es</span></div>
+                <div class="flag-card"><span class="f">🇲🇾</span><span class="name">Malaysia</span><span class="iso">my</span></div>
+                <div class="flag-card"><span class="f">🇳🇱</span><span class="name">Netherlands</span><span class="iso">nl</span></div>
             </div>
         </div>
     </section>
@@ -1038,7 +1071,7 @@
                 <a href="https://github.com/Pola5h/FlagIcons" target="_blank" class="btn-primary">
                     View on GitHub →
                 </a>
-                <a href="https://pola5h.github.io/" target="_blank" class="btn-ghost">
+                <a href="https://polash.link/" target="_blank" class="btn-ghost">
                     More by Polash
                 </a>
             </div>
@@ -1048,13 +1081,13 @@
     <!-- FOOTER -->
     <footer>
         <p>
-            Laravel Flag Icons · Built by <a href="https://pola5h.github.io/">Kamruzzaman Polash</a> ·
+            Laravel Flag Icons · Built by <a href="https://polash.link/">Kamruzzaman Polash</a> ·
             <a href="https://github.com/Pola5h/FlagIcons">GitHub</a> ·
             MIT License · © 2026
         </p>
         <p style="margin-top:0.5rem; font-size:0.75rem;">
-            Also check out: <a href="https://pola5h.github.io/laravel-api-starter-kit/">Laravel API Starter Kit</a> ·
-            <a href="https://pola5h.github.io/blog/">Laravel Blog</a>
+            Also check out: <a href="https://polash.link/laravel-api-starter-kit/">Laravel API Starter Kit</a> ·
+            <a href="https://polash.link/blog/">Laravel Blog</a>
         </p>
     </footer>
 
