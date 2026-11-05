@@ -509,9 +509,13 @@
 
         .flag-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(9, 1fr);
             gap: 0.8rem;
             margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .flag-grid { grid-template-columns: repeat(6, 1fr); }
         }
 
         .flag-card {
@@ -734,9 +738,13 @@
             .usage-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .flag-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+            .flag-grid { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
             .hero h1 { font-size: 2.4rem; }
             .install-wrap { font-size: 0.8rem; flex-wrap: wrap; }
+        }
+
+        @media (max-width: 480px) {
+            .flag-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -949,8 +957,6 @@
                 <div class="flag-card"><span class="f">🇦🇪</span><span class="name">UAE</span><span class="iso">ae</span></div>
                 <div class="flag-card"><span class="f">🇮🇹</span><span class="name">Italy</span><span class="iso">it</span></div>
                 <div class="flag-card"><span class="f">🇪🇸</span><span class="name">Spain</span><span class="iso">es</span></div>
-                <div class="flag-card"><span class="f">🇲🇾</span><span class="name">Malaysia</span><span class="iso">my</span></div>
-                <div class="flag-card"><span class="f">🇳🇱</span><span class="name">Netherlands</span><span class="iso">nl</span></div>
             </div>
         </div>
     </section>
